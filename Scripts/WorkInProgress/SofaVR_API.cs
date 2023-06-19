@@ -303,8 +303,8 @@ public class SofaVR_API : MonoBehaviour
             m_sofaContext = null;
         }
 
-        if (sceneName.Contains("xray") || sceneName.Contains("cadu"))
-            return;
+        //if (sceneName.Contains("xray") || sceneName.Contains("cadu"))
+        //    return;
 
         // Set loading info
         m_loading = true;    
@@ -380,24 +380,27 @@ public class SofaVR_API : MonoBehaviour
         //    m_leftCollisionModel.SetSofaContext(m_sofaContext);
 
 
+        //m_sofaContext.IsSofaUpdating = false;
 
-        GameObject selectObj = GameObject.FindGameObjectWithTag("LeftHandModel");
-        SofaDAGNode parentDagN = m_sofaContext.GetComponent<SofaDAGNode>();
-        if (selectObj == null)
-            Debug.LogError("hand null");
-        if (parentDagN == null)
-            Debug.LogError("Parent node null");
-        if (m_sofaContext == null)
-            Debug.LogError("sofa ctxt null");
-        // Add sphere due to capsule position to collide with sofa
-        selectObj.AddComponent<SofaSphereCollisionHand>();
-        selectObj.GetComponent<SofaSphereCollisionHand>().SetSofaContext(m_sofaContext);
+        //GameObject selectObj = GameObject.FindGameObjectWithTag("LeftHandModel");
+        //SofaDAGNode parentDagN = m_sofaContext.GetComponent<SofaDAGNode>();
+        //if (selectObj == null)
+        //    Debug.LogError("hand null");
+        //if (parentDagN == null)
+        //    Debug.LogError("Parent node null");
+        //if (m_sofaContext == null)
+        //    Debug.LogError("sofa ctxt null");
+        //// Add sphere due to capsule position to collide with sofa
+        //selectObj.AddComponent<SofaSphereCollisionHand>();
+        //selectObj.GetComponent<SofaSphereCollisionHand>().SetSofaContext(m_sofaContext);
 
         //SofaDAGNodeManager nodeMgr = m_sofaContext.NodeGraphMgr;
         //if (nodeMgr != null)
         //    nodeMgr.RegisterCustomObject(selectObj, parentDagN);
         //else
         //    Debug.LogError("Error creating SofaSphereCollisionHand. Can't access SofaDAGNodeManager.");
+
+        //m_sofaContext.IsSofaUpdating = true;
 
         //// Get reference to SofaSphereCollisionHand component to disable / enable colision on grab.
         //selectObj.GetComponent<DesactivateCollision>().SetSofaSphereCollisionHand(selectObj.GetComponent<SofaSphereCollisionHand>());
