@@ -1,4 +1,4 @@
-See full online documentation here: http://infinytech3d.com/SofaUnity/sofaUnity.php
+See full online documentation here: https://infinytech3d.com/sapapi-unity3d/
 
 How to install here: https://infinytech3d.com/getting-started/
 
