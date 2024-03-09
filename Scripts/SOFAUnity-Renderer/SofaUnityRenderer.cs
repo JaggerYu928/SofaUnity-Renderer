@@ -68,6 +68,7 @@ namespace SofaUnity
             sofaAPI.loadPlugin(Application.dataPath + pluginPath + "Sofa.Component.dll");
             sofaAPI.loadPlugin(Application.dataPath + pluginPath + "Sofa.GL.Component.dll");
             sofaAPI.loadPlugin(Application.dataPath + pluginPath + "Sofa.GUI.Component.dll");
+            sofaAPI.loadPlugin(Application.dataPath + pluginPath + "SofaTearing.dll");
         }
 
 

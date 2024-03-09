@@ -113,6 +113,8 @@ public class SofaVisualModel : MonoBehaviour
         if (m_isDirty)
         {
             UpdateMesh();
+            UpdateTexCoords();
+            CreateTriangulation();
             m_isDirty = false;
         }
     }
