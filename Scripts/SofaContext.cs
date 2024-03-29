@@ -395,6 +395,8 @@ namespace SofaUnity
         protected List<float> m_times = new List<float>();
         protected List<float> m_sofaTimes = new List<float>();
 
+        int result = 0;
+
         // Update is called once per fix frame
         void Update()
         {
@@ -414,6 +416,21 @@ namespace SofaUnity
 
             // log sofa messages
             DoCatchSofaMessages();
+            if (Input.anyKeyDown)
+            {
+                int[] values = {0, 0, 0}; // 初始化values陣列
+
+                if (Input.GetKeyDown(KeyCode.W)) values[1] = 10;
+                else if (Input.GetKeyDown(KeyCode.S)) values[1] = -10;
+                else if (Input.GetKeyDown(KeyCode.A)) values[0] = 10;
+                else if (Input.GetKeyDown(KeyCode.D)) values[0] = -10;
+                else if (Input.GetKeyDown(KeyCode.Q)) values[2] = 10;
+                else if (Input.GetKeyDown(KeyCode.E)) values[2] = -10;
+                else return; // 如果按下的不是這些指定的鍵，則不進行後續操作
+
+                result = m_impl.setTranslation(values);
+                Debug.Log("## result: " + result);
+            }
         }
                 
 

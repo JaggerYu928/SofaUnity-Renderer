@@ -2,8 +2,6 @@
 <!--Test case 1: Upper border is fixed and only heavy gravity is applied -->
 
 <Node name="root" dt="0.02" showBoundingTree="0" gravity="0 -10 0">
-
-
 	<!--
     <VisualStyle displayFlags="showVisual showBehaviorModels" />
 	-->
@@ -19,10 +17,10 @@
 	<Node name="Grab">
 		<EulerImplicitSolver name="cg_odesolver" printLog="false"  rayleighStiffness="0.1" rayleighMass="0.1" />
 		<CGLinearSolver iterations="15" name="linear solver" tolerance="1.0e-9" threshold="1.0e-9" />
-		<MechanicalObject name="ms1" template="Rigid3d" position="0 40 0 -0.5 0.5 -0.5 0.5" />
-		
+        <!--
+		<MechanicalObject name="ms1" template="Rigid3d" position="0 40 0 -0.5 0.5 -0.5 0.5" />	
 		<LinearMovementConstraint name="keyframes" keyTimes="0 1 5 6" movements="20 60 50 0 0 0    -30 49 50 0 0 0    40 50 110 0 0 0     20 80 110 0 0 0" showMovement="1" />
-		
+		-->
 
 		<Node name="GrabSurfaceR">
 			<MeshObjLoader name="loaderPince" filename="mesh/Instrument v3.obj" triangulate="1" />
@@ -31,12 +29,17 @@
 			<TriangleCollisionModel group="1" simulated="0" moving="1" />
 			<LineCollisionModel group="1" simulated="0" moving="1" />
 			<PointCollisionModel group="1" simulated="0" moving="1" />
+			<OglModel name="vm" src="@loaderPince"/>
+			<!--
 			<RigidMapping index="0" />
+			-->
 		</Node>
+		<!--
 		<Node name="GrabVisualL">
-			<OglModel name="vm" filename="mesh/Instrument v3.obj" rotation="-10 0 0" scale="0.8"/>
+			<OglModel name="vm" src="@../GrabSurfaceR/loaderPince" rotation="-10 0 0" scale="0.8"/>
 			<RigidMapping index="0" />
 		</Node>
+		-->
 	</Node>
 
 	<Node name="SquareGravity">
