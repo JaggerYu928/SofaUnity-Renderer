@@ -15,10 +15,11 @@
     <MinProximityIntersection name="Proximity" alarmDistance="0.5" contactDistance="0.1" />
 
 	<Node name="Grab">
-		<EulerImplicitSolver name="cg_odesolver" printLog="false"  rayleighStiffness="0.1" rayleighMass="0.1" />
+		<EulerImplicitSolver name="cg_odesolver" printLog="false"  rayleighStiffness="0.1" rayleighMass="1" />
 		<CGLinearSolver iterations="15" name="linear solver" tolerance="1.0e-9" threshold="1.0e-9" />
-        <!--
-		<MechanicalObject name="ms1" template="Rigid3d" position="0 40 0 -0.5 0.5 -0.5 0.5" />	
+        
+		<MechanicalObject name="ms1" template="Rigid3d" position="100 40 0 -0.5 0.5 -0.5 0.5" />	
+		<!--
 		<LinearMovementConstraint name="keyframes" keyTimes="0 1 5 6" movements="20 60 50 0 0 0    -30 49 50 0 0 0    40 50 110 0 0 0     20 80 110 0 0 0" showMovement="1" />
 		-->
 
@@ -29,17 +30,15 @@
 			<TriangleCollisionModel group="1" simulated="0" moving="1" />
 			<LineCollisionModel group="1" simulated="0" moving="1" />
 			<PointCollisionModel group="1" simulated="0" moving="1" />
-			<OglModel name="vm" src="@loaderPince"/>
-			<!--
 			<RigidMapping index="0" />
-			-->
+			
 		</Node>
-		<!--
+		
 		<Node name="GrabVisualL">
 			<OglModel name="vm" src="@../GrabSurfaceR/loaderPince" rotation="-10 0 0" scale="0.8"/>
 			<RigidMapping index="0" />
 		</Node>
-		-->
+		
 	</Node>
 
 	<Node name="SquareGravity">
@@ -49,7 +48,7 @@
 		<include href="mesh/TriangleSetTopology.xml" src="@meshLoader" />
 		<MechanicalObject rx="90" dx="-25" dy="48" dz="0"/>
 		<DiagonalMass massDensity="0.5" />
-		<TriangularFEMForceField name="FEM" youngModulus="6000" poissonRatio="0.35" method="large" showStressValue="false" showStressVector="false" showFracturableTriangles="true" hosfordExponant="10.0" criteriaValue="10000" computePrincipalStress="true"/>
+		<TriangularFEMForceField name="FEM" youngModulus="1000" poissonRatio="0.35" method="large" showStressValue="false" showStressVector="false" showFracturableTriangles="true" hosfordExponant="10.0" criteriaValue="10000" computePrincipalStress="true"/>
 		<!-- <PrecomputedConstraintCorrection recompute="false" /> -->
 
 		<BoxROI template="Vec3d" name="box_roi1" box="-25 45 -2 75 50 2" drawBoxes="1"/>
@@ -69,7 +68,7 @@
     	<BruteForceBroadPhase/>
     	<BVHNarrowPhase/>
 		
-		<TearPlugin name="Tear" tearThreshold="800.0" />
+		<TearPlugin name="Tear" tearThreshold="10.0" />
 
 	</Node>
 </Node>

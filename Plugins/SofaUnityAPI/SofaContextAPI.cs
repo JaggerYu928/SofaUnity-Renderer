@@ -393,10 +393,10 @@ namespace SofaUnityAPI
                 Debug.LogError("SofaContextAPI::SofaKeyReleaseEvent method returns: " + SofaDefines.msg_error[res]);
         }
 #endif
-        public int setTranslation(int[] values)
+        public int setPosition(int[] values)
         {
             int res = 0;
-            res = sofaPhysicsAPI_setTranslation(m_native, "vm", values);
+            res = sofaPhysicsAPI_setPosition(m_native, "vm", values);
             return res;
             //return 5;
         }
@@ -507,6 +507,6 @@ namespace SofaUnityAPI
         public static extern int sofaPhysicsAPI_createKeyReleaseEvent(IntPtr obj, int keyId);
 #endif
         [DllImport("SofaPhysicsAPI")]
-        public static extern int sofaPhysicsAPI_setTranslation(IntPtr obj, string name, int[] values);
+        public static extern int sofaPhysicsAPI_setPosition(IntPtr obj, string name, int[] values);
     }
 }

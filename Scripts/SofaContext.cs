@@ -69,6 +69,9 @@ namespace SofaUnity
         [SerializeField]
         private SceneFileManager m_sceneFileMgr = null;
 
+        private Camera mainCamera;
+        private GameObject planeObject;
+
         ////////////////////////////////////////////
         ////////          parameters         ///////
         ////////////////////////////////////////////
@@ -239,6 +242,16 @@ namespace SofaUnity
             }
 
             this.gameObject.tag = "GameController";
+
+            // 在這裡加入代碼來獲取Main Camera和Plane物件的引用
+            mainCamera = Camera.main; // 獲取標記為 Main Camera 的攝像機
+            planeObject = GameObject.Find("SofaVisualModel - vm"); // 假設你的平面物件標籤為 "Plane"
+
+            // 進一步的操作，比如檢查是否成功獲得了引用
+            if (mainCamera == null)
+                Debug.LogError("Main Camera not found.");
+            if (planeObject == null)
+                Debug.LogError("Plane object not found.");
 
             StartSofa();
         }
@@ -416,23 +429,45 @@ namespace SofaUnity
 
             // log sofa messages
             DoCatchSofaMessages();
+
+            // Handle key press
+            HandleKeyPress();
+        }
+
+        int delta = 100;
+
+        void HandleKeyPress()
+        {
             if (Input.anyKeyDown)
             {
-                int[] values = {0, 0, 0}; // 初始化values陣列
+                if (Input.GetKeyDown(KeyCode.W)) delta += 5;
+                else if (Input.GetKeyDown(KeyCode.S)) delta -=5;
+            }
+            
+            // 從攝像機到鼠標點擊位置創建一條射線
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            //Debug.Log("ray: " + ray);
 
-                if (Input.GetKeyDown(KeyCode.W)) values[1] = 10;
-                else if (Input.GetKeyDown(KeyCode.S)) values[1] = -10;
-                else if (Input.GetKeyDown(KeyCode.A)) values[0] = 10;
-                else if (Input.GetKeyDown(KeyCode.D)) values[0] = -10;
-                else if (Input.GetKeyDown(KeyCode.Q)) values[2] = 10;
-                else if (Input.GetKeyDown(KeyCode.E)) values[2] = -10;
-                else return; // 如果按下的不是這些指定的鍵，則不進行後續操作
+            // 用於存儲射線檢測的結果
+            RaycastHit hit;
 
-                result = m_impl.setTranslation(values);
+            // 檢查射線是否與任何Collider相交
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                // 如果相交，hit.point就是交點的三維座標
+                // Debug.Log("Hit Point: " + hit.point);
+                Debug.DrawLine(ray.origin, hit.point, Color.blue, 2f);
+
+                int x = Mathf.RoundToInt(hit.point.x);
+                int y = Mathf.RoundToInt(hit.point.y);
+                int z = Mathf.RoundToInt(hit.point.z);
+
+                int[] values = {x, y + delta, z};
+
+                result = m_impl.setPosition(values);
                 Debug.Log("## result: " + result);
             }
-        }
-                
+        }   
 
         private float nextUpdate = 0.0f;
 
